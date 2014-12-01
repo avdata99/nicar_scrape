@@ -5,7 +5,7 @@
 
 import datetime
 
-from scrapy import log
+#from scrapy import log
 from scrapy.selector import Selector
 from scrapy.spider import Spider
 from urlparse import urlparse
@@ -26,12 +26,15 @@ class DominiosSpider(Spider):
 
 
 
-    def __init__(self,*args, **kwargs):
+    def __init__(self, date_str=None, *args, **kwargs):
         super(DominiosSpider, self).__init__(*args, **kwargs)
 
         #paginación max se puede obtener de la página por xpath
         pages = 4
-        today_str = self.today.strftime("%d/%m/%y")
+        if not date_str:
+            today_str = self.today.strftime("%d/%m/%y")
+        else:
+            today_str = date_str
 
         self.start_urls = [
             'http://www.boletinoficial.gov.ar/CuartaSeccion/ListarPortadas.Castle?idRubro=744' \
